@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Diabetes Page</title>
+
+  <style>
+    body {
+      margin: 0;
+      font-family: "Lato", sans-serif;
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+    }
+
+    .wrapper {
+      display: flex;
+    }
+
+    .sidebar {
+      margin: 0;
+      padding: 0;
+      width: 200px;
+      background-color: #f1f1f1;
+      overflow: auto;
+    }
+
+    .sidebar a {
+      display: block;
+      color: black;
+      padding: 16px;
+      text-decoration: none;
+    }
+
+    .sidebar a.active {
+      background-color: #04AA6D;
+      color: white;
+    }
+
+    .sidebar a:hover:not(.active) {
+      background-color: #555;
+      color: white;
+    }
+
+    .content {
+      flex: 1;
+      padding: 16px; /* Add padding to separate content from the sidebar */
+    }
+
+    @media screen and (max-width: 700px) {
+      .wrapper {
+        flex-direction: column;
+      }
+
+      .sidebar {
+        width: 100%;
+        height: auto;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  {% include 'MediCare/navbar.html' %}
+
+  {% block content %}
+
+  <div class="wrapper">
+    <div class="sidebar">
+      <h5 class="text-center text-decoration-underline mt-2 mb-3">Multiple Diseases</h5>
+      <a href="{% url 'home' %}">Heart Disease Prediciton</a>
+      <a  class='active' href="{% url 'diabetes' %}">Diabetes Prediciton</a>
+      <a href="{% url 'parkinsons' %}">Parkinsons Prediction</a>
+    </div>
+
+    <div class="content">
+      <h3 class="text-center text-decoration-underline">Diabetes Disease Prediction</h3>
+        <form action="{% url 'predict_diabetes' %}" method="post">
+          {% csrf_token %}
+          <div class="row">
+            <div class="col-lg-4 col-md-4 col-sm-4 mb-3 mt-2">
+              <label for="" class="form-label">High Blood Pressure</label>
+              <select name="HighBP" class="form-control" required>
+                <option value="1">Presence of HighBP</option>
+                <option value="0">Absence of HighBP</option>
+              </select>
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-4 mb-3 mt-2">
+              <label for="" class="form-label">High Cholesterol</label>
+              <select name="HighChol" class="form-control" required>
+                <option value="1">Presence of HighChol</option>
+                <option value="0">Absence of HighChol</option>
+              </select>
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-4 mb-3 mt-2">
+              <label for="" class="form-label">Cholesterol Check</label>
+              <select name="CholCheck" class="form-control" required>
+                <option value="1">Chol Checked</option>
+                <option value="0">Chol Not Checked</option>
+              </select>
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-4 mb-3 mt-2">
+              <label for="" class="form-label">Weight</label>
+              <input type="number" class="form-control" name="Weight" required step="0.01">
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-4 mb-3 mt-2">
+              <label for="" class="form-label">Height</label>
+              <input type="number" class="form-control" name="Height" required step="0.01">
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-4 mb-3 mt-2">
+              <label for="" class="form-label">Smoker</label>
+              <select name="Smoker" class="form-control" required>
+                <option value="1">Smoker</option>
+                <option value="0">Non-smoker</option>
+              </select>
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-4 mb-3 mt-2">
+              <label for="" class="form-label">Stroke</label>
+              <select name="Stroke" class="form-control" required>
+                <option value="1">Presence of a History of stroke</option>
+                <option value="0">Absence of a History of stroke</option>
+              </select>
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-4 mb-3 mt-2">
+              <label for="" class="form-label">HeartDisease or HeartAttack</label>
+              <select name="HeartDiseaseorAttack" class="form-control" required>
+                <option value="1">Presence of HeartDisease or HeartAttack</option>
+                <option value="0">Absence of HeartDisease or HeartAttack</option>
+              </select>
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-4 mb-3 mt-2">
+              <label for="" class="form-label">Physical Activity</label>
+              <select name="PhysActivity" class="form-control" required>
+                <option value="1">Enagement in a Physical Activity</option>
+                <option value="0">Lack of Enagement in a Physical Activity</option>
+              </select>
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-4 mb-3 mt-2">
+              <label for="" class="form-label">Fruits</label>
+              <select name="Fruits" class="form-control" required>
+                <option value="1">Consumption of Fruits</option>
+                <option value="0">Non-Consumption of Fruits</option>
+              </select>
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-4 mb-3 mt-2">
+              <label for="" class="form-label">Vegetables</label>
+              <select name="Veggies" class="form-control" required>
+                <option value="1">Consumption of Vegetables</option>
+                <option value="0">Non-Consumption of Vegetables</option>
+              </select>
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-4 mb-3 mt-2">
+              <label for="" class="form-label">Alcohol Consumption</label>
+              <select name="HvyAlcoholConsump" class="form-control" required>
+                <option value="1">Heavy alcohol consumption</option>
+                <option value="0">Non-consumption of alcohol</option>
+              </select>
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-4 mb-3 mt-2">
+              <label for="" class="form-label">Healthcare Services</label>
+              <select name="AnyHealthcare" class="form-control" required>
+                <option value="1">Use of any healthcare services</option>
+                <option value="0">Non-use of any healthcare services</option>
+              </select>
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-4 mb-3 mt-2">
+              <label for="" class="form-label">Doctor Visits due to Cost</label>
+              <select name="NoDocbcCost" class="form-control" required>
+                <option value="1">Absence of doctor visits due to cost</option>
+                <option value="0">Presence of doctor visits due to cost</option>
+              </select>
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-4 mb-3 mt-2">
+              <label for="" class="form-label">General Health Status</label>
+              <select name="GenHlth" class="form-control" required>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+              </select>
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-4 mb-3 mt-2">
+              <label for="" class="form-label">Mental Health Status</label>
+              <input type="number" class="form-control" name="MentHlth" required>
+              <label for="" class="form-text">Mental health status,represented by a numeric scale(0-30)</label>
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-4 mb-3 mt-2">
+              <label for="" class="form-label">Physical Health Status</label>
+              <input type="number" class="form-control" name="PhysHlth" required>
+              <label for="" class="form-text">Physical health status,represented by a numeric scale(0-30)</label>
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-4 mb-3 mt-2">
+              <label for="" class="form-label">Walking</label>
+              <select name="DiffWalk" class="form-control" required>
+                <option value="1">Difficulty in walking</option>
+                <option value="0">Ease in walking</option>
+              </select>
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-4 mb-3 mt-2">
+              <label for="" class="form-label">Sex</label>
+              <select name="Sex" class="form-control" required>
+                <option value="1">Male</option>
+                <option value="0">Female</option>
+              </select>
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-4 mb-3 mt-2">
+              <label for="" class="form-label">Age</label>
+              <input type="number" class="form-control" name="Age" required>
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-4 mb-3 mt-2">
+              <label for="" class="form-label">Education</label>
+              <select name="Eduction" class="form-control" required>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+              </select>
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-4 mb-3 mt-2">
+              <label for="" class="form-label">Income</label>
+              <input type="number" class="form-control" name="Income" required>
+            </div>
+          </div>
+          <button type="submit" class="btn btn-primary mt-2">Diabetes Disease Test Result</button>
+        </form>
+
+        {% if diabetes_diagnosis %}
+
+        <div class="btn btn-success font-weight-bold mt-3 text-center text-decoration-underline">{{ diabetes_diagnosis }}</div>
+
+        {% endif %}
+    </div>
+  </div>
+  {% endblock content %}
+
+  {% include 'MediCare/footer.html' %}
+
+</body>
+
+</html>

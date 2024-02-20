@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Parkinsons Page</title>
+
+  <style>
+    body {
+      margin: 0;
+      font-family: "Lato", sans-serif;
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+    }
+
+    .wrapper {
+      display: flex;
+    }
+
+    .sidebar {
+      margin: 0;
+      padding: 0;
+      width: 200px;
+      background-color: #f1f1f1;
+      overflow: auto;
+    }
+
+    .sidebar a {
+      display: block;
+      color: black;
+      padding: 16px;
+      text-decoration: none;
+    }
+
+    .sidebar a.active {
+      background-color: #04AA6D;
+      color: white;
+    }
+
+    .sidebar a:hover:not(.active) {
+      background-color: #555;
+      color: white;
+    }
+
+    .content {
+      flex: 1;
+      padding: 16px; /* Add padding to separate content from the sidebar */
+    }
+
+    @media screen and (max-width: 700px) {
+      .wrapper {
+        flex-direction: column;
+      }
+
+      .sidebar {
+        width: 100%;
+        height: auto;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  {% include 'MediCare/navbar.html' %}
+
+  {% block content %}
+
+  <div class="wrapper">
+    <div class="sidebar">
+      <h5 class="text-center text-decoration-underline mt-2 mb-3">Multiple Diseases</h5>
+      <a href="{% url 'home' %}">Heart Disease Prediciton</a>
+      <a href="{% url 'diabetes' %}">Diabetes Prediciton</a>
+      <a class='active' href="{% url 'parkinsons' %}">Parkinsons Prediction</a>
+    </div>
+
+    <div class="content">
+      <h3 class="text-center text-decoration-underline">Parkinsons Disease Prediction</h3>
+        <form action="{% url 'predict_parkinsons' %}" method="post">
+          {% csrf_token %}
+          <div class="row">
+            <div class="col-lg-4 col-md-4 col-sm-4 mb-3">
+              <label for="" class="form-label">Average vocal fundamental frequency</label>
+              <input type="number" class="form-control" name="Fo" required step="0.000001">
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-4 mb-3">
+              <label for="" class="form-label">Maximum vocal fundamental frequency</label>
+              <input type="number" class="form-control" name="Fhi" required step="0.000001">
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-4 mb-3">
+              <label for="" class="form-label">Minimum vocal fundamental frequency</label>
+              <input type="number" class="form-control" name="Flo" required step="0.000001">
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-4 mb-3">
+              <label for="" class="form-label">Multidimensional Voice Program Jitter Percentage</label>
+              <input type="number" class="form-control" name="Jitter-Percentage" required step="0.000001">
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-4 mb-3">
+              <label for="" class="form-label"> Multidimensional Voice Program Absolute Jitter</label>
+              <input type="number" class="form-control" name="Jitter-Abs" required step="0.000001">
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-4 mb-3">
+              <label for="" class="form-label">Multidimensional Voice Program Relative Average </label>
+              <input type="number" class="form-control" name="RAP" required step="0.000001">
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-4 mb-3">
+              <label for="" class="form-label">MDVP Five-Point Period Perturbation Quotient.</label>
+              <input type="number" class="form-control" name="PPQ" required step="0.000001">
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-4 mb-3">
+              <label for="" class="form-label">Jitter: Discrete Difference of Fundamental Frequency</label>
+              <input type="number" class="form-control" name="DDP" required step="0.000001">
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-4 mb-3">
+              <label for="" class="form-label">Multidimensional Voice Program Shimmer</label>
+              <input type="number" class="form-control" name="Shimmer" required step="0.000001">
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-4 mb-3">
+              <label for="" class="form-label">Multidimensional Voice Program Shimmer in Decibels</label>
+              <input type="text" class="form-control" name="Shimmer_Decibles" required step="0.000001">
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-4 mb-3">
+              <label for="" class="form-label">Amplitude Perturbation Quotient (APQ3)</label>
+              <input type="number" class="form-control" name="APQ3" required step="0.000001">
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-4 mb-3">
+              <label for="" class="form-label">Amplitude Perturbation Quotient (APQ5)</label>
+              <input type="number" class="form-control" name="APQ5" required step="0.000001">
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-4 mb-3">
+              <label for="" class="form-label">MDVP Amplitude Perturbation Quotient</label>
+              <input type="number" class="form-control" name="APQ" required step="0.000001">
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-4 mb-3">
+              <label for="" class="form-label">Discrete Difference of Amplitude</label>
+              <input type="number" class="form-control" name="DDA" required step="0.000001">
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-4 mb-3">
+              <label for="" class="form-label">NHR (Noise-to-Harmonics Ratio)</label>
+              <input type="number" class="form-control" name="NHR" required step="0.000001">
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-4 mb-3">
+              <label for="" class="form-label">HNR (Harmonics-to-Noise Ratio)</label>
+              <input type="number" class="form-control" name="HNR" required step="0.000001">
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-4 mb-3">
+              <label for="" class="form-label">RPDE (Recurrence Period Density Entropy)</label>
+              <input type="number" class="form-control" name="RPDE" required step="0.000001">
+            </div> 
+            <div class="col-lg-4 col-md-4 col-sm-4 mb-3">
+              <label for="" class="form-label">DFA (Detrended Fluctuation Analysis)</label>
+              <input type="number" class="form-control" name="DFA" required step="0.000001">
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-4 mb-3">
+              <label for="" class="form-label">Spread-1</label>
+              <input type="number" class="form-control" name="Spread-1" required step="0.000001">
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-4 mb-3">
+              <label for="" class="form-label">Spread-2</label>
+              <input type="number" class="form-control" name="Spread-2" required step="0.000001">
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-4 mb-3">
+              <label for="" class="form-label">D2 nonlinear dynamical complexity</label>
+              <input type="number" class="form-control" name="D2" required step="0.000001">
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-4 mb-3">
+              <label for="" class="form-label">PPE</label>
+              <input type="number" class="form-control" name="PPE" required step="0.000001">
+            </div>
+          </div>
+          <button type="submit" class="btn btn-primary">Parkinsons Disease Test Result</button>
+        </form>
+
+        {% if parkinsons_diagnosis %}
+
+        <div class="btn btn-success font-weight-bold mt-3 text-center text-decoration-underline">{{ parkinsons_diagnosis }}</div>
+
+        {% endif %}
+    </div>
+  </div>
+  {% endblock content %}
+
+  {% include 'MediCare/footer.html' %}
+
+</body>
+
+</html>

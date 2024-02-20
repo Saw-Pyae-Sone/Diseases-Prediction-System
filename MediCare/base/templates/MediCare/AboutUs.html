@@ -1,0 +1,33 @@
+{#  extends 'home.html' #}
+
+{% include 'MediCare/navbar.html' %}
+
+<style>
+    p::first-letter
+    {
+        font-size: 200%;
+        color: #8A2BE2;
+    }
+    .justify-text {
+    text-align: justify;
+    }
+</style>
+{% block content %}
+
+<div class="container">
+    <div class="row mt-3">
+        <h3 class="text-center text-decoration-underline">About Us</h3>
+        <div class="col-lg-6 col-md-4 mt-3">
+            <img src="../static/Image/Aboutus.png" alt="Image" class="img-fluid" style="width: 45vw; height: 70vh;">
+        </div>
+        <div class="col-lg-6 col-md-4 mt-3">
+            <p class="justify-text">MediCare, established in 2023, a Myanmar charity organized with a group of volunteers from diverse backgrounds (engineers, data scientists, and health care professionals). They have been conducting field research on developing nations, like Myanmar, consistently faces challenges in accessing proper medical care and knowledge, especially for those who are living in remote regions. Transportation problems, a lack of healthcare experts, and poor infrastructure can all contribute to this limited access.</p>
+            
+            <p class="justify-text mt-3">In response to the observed shortage of medical expertise and treatment in remote regions, a group of volunteers has made the decision to intervene with community support.They are establishing a “Disease Prediction Web-Based System," named MediCare, that will predict three diseases (Heart Attack, Diabetes, and Parkinson’s Disease) out of common diseases.</p>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}
+
+{% include 'MediCare/footer.html' %}
