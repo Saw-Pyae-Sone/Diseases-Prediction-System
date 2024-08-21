@@ -1,0 +1,279 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Dashboard</title>
+
+    <!-- Custom fonts for this template-->
+    <link href="{% static 'assests/vendor/fontawesome-free/css/all.min.css' %}" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+
+    <!-- Custom styles for this template-->
+    <link href="{% static 'assests/css/sb-admin-2.min.css' %}" rel="stylesheet">
+
+    <link href="{% static 'assests/vendor/datatables/dataTables.bootstrap4.min.css' %}" rel="stylesheet">
+</head>
+
+<body id="page-top">
+    <!-- Page Wrapper -->
+    <div id="wrapper">
+        <!-- Sidebar -->
+        {% include 'C-admin/sidebar.html' %}
+        <!-- End of Sidebar -->
+
+        <!-- Content Wrapper -->
+        <div id="content-wrapper" class="d-flex flex-column">
+            <!-- Main Content -->
+            <div id="content">
+                <!-- Topbar -->
+                {% include 'C-admin/topbar.html' %}
+                <!-- End of Topbar -->
+
+                <!-- Begin Page Content -->
+                <div class="container-fluid">
+                    <!-- Page Heading -->
+                    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                        <h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
+                    </div>
+
+                    <!-- Content Row -->
+                    <div class="row">
+                        <div class="col-xl-3 col-md-6 mb-4">
+                            <div class="card border-left-info shadow h-100 py-2">
+                                <div class="card-body">
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col mr-2">
+                                            <div class="text-xs font-weight-bold text-info text-uppercase mb-1">
+                                                Number of visitors
+                                            </div>
+                                            <div class="row no-gutters align-items-center">
+                                                <div class="col-auto">
+                                                    <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">
+                                                        {{ view_count }}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-auto">
+                                            <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-xl-3 col-md-6 mb-4">
+                            <div class="card border-left-primary shadow h-100 py-2">
+                                <div class="card-body">
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col mr-2">
+                                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                                Number of Patients</div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{ patient_count }}</div>
+                                        </div>
+                                        <div class="col-auto">
+                                            <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Earnings (Monthly) Card Example -->
+                        <div class="col-xl-3 col-md-6 mb-4">
+                            <div class="card border-left-success shadow h-100 py-2">
+                                <div class="card-body">
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col mr-2">
+                                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                                                Positive Feedbacks</div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{ feedback_count }}</div>
+                                        </div>
+                                        <div class="col-auto">
+                                            <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Pending Requests Card Example -->
+                        <div class="col-xl-3 col-md-6 mb-4">
+                            <div class="card border-left-warning shadow h-100 py-2">
+                                <div class="card-body">
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col mr-2">
+                                            <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
+                                            Professional Doctors
+                                            </div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{ doctor_count }}</div>
+                                        </div>
+                                        <div class="col-auto">
+                                            <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Content Row -->
+                    <div class="row">
+                        <!-- Area Chart -->
+                        <h3 class="mt-2">Most Predicted Disease all times</h3>
+                        <div class="col-xl-12 col-lg-12 mt-2">
+                            <div>
+                                <canvas id="diseaseChart"></canvas>
+                                <input type="hidden" value="{{ heart_disease_count }}" id="heart">
+                                <input type="hidden" value="{{ diabetes_count }}" id="diabetes">
+                                <input type="hidden" value="{{ parkinsons_count }}" id="parkinsons">
+                            </div>
+                        </div>
+                        <h3 class="mt-2">Most Used Regions all time</h3>
+                        <div class="col-xl-12 col-lg-12 mt-2">
+                            <canvas id="cityPieChart"></canvas>                   
+                        </div>
+                    </div>
+                </div>
+                <!-- /.container-fluid -->
+            </div>
+            <!-- End of Main Content -->
+
+            <!-- Footer -->
+            {% include 'C-admin/footer.html' %}
+            <!-- End of Footer -->
+        </div>
+        <!-- End of Content Wrapper -->
+    </div>
+    <!-- End of Page Wrapper -->
+
+    <!-- Scroll to Top Button-->
+    <a class="scroll-to-top rounded" href="#page-top">
+        <i class="fas fa-angle-up"></i>
+    </a>
+
+    <!-- Logout Modal-->
+    {% include 'C-admin/logout.html' %}
+
+    <!-- Bootstrap core JavaScript-->
+    <script src="{% static 'assests/vendor/jquery/jquery.min.js' %}"></script>
+    <script src="{% static 'assests/vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+
+    <!-- Core plugin JavaScript-->
+    <script src="{% static 'assests/vendor/jquery-easing/jquery.easing.min.js' %}"></script>
+
+    <!-- Custom scripts for all pages-->
+    <script src="{% static 'assests/js/sb-admin-2.min.js' %}"></script>
+
+    <!-- Chart.js and custom scripts -->
+    <script src="{% static 'assests/chart.js/Chart.min.js' %}"></script>
+    <script src="{% static 'assests/js/demo/chart-area-demo.js' %}"></script>
+    <script src="{% static 'assests/js/demo/chart-pie-demo.js' %}"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', (event) => {
+            console.log("Page loaded, attempting to render chart...");
+
+            var heartCount = document.getElementById('heart').value;
+            var diabetesCount = document.getElementById('diabetes').value;
+            var parkinsonsCount = document.getElementById('parkinsons').value;
+
+            var ctx = document.getElementById('diseaseChart').getContext('2d');
+            var diseaseChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: ['Heart Disease', 'Diabetes', 'Parkinson\'s Disease'],
+                    datasets: [{
+                        label: 'Number of Predictions',
+                        data: [heartCount, diabetesCount, parkinsonsCount],
+                        backgroundColor: [
+                            'rgba(255, 99, 132, 0.2)',
+                            'rgba(54, 162, 235, 0.2)',
+                            'rgba(75, 192, 192, 0.2)'
+                        ],
+                        borderColor: [
+                            'rgba(255, 99, 132, 1)',
+                            'rgba(54, 162, 235, 1)',
+                            'rgba(75, 192, 192, 1)'
+                        ],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+        });
+
+        $(document).ready(function() {
+            // Prevent default behavior for all anchor tags with href="#"
+            $('a[href="#"]').on('click', function(e) {
+                e.preventDefault();
+            });
+
+            // Handle collapse functionality
+            $('a.nav-link.collapsed').on('click', function(e) {
+                e.preventDefault();
+                var target = $(this).attr('data-target');
+                $(target).collapse('toggle');
+            });
+        });
+
+        document.addEventListener('DOMContentLoaded', function() {
+            // Get data from Django view
+            var cityData = JSON.parse('{{ city_data_json|escapejs }}');
+            console.log(cityData); // Debugging: Check if data is correct
+            
+            // Get canvas context
+            var ctx = document.getElementById('cityPieChart').getContext('2d');
+
+            // Create pie chart
+            var cityPieChart = new Chart(ctx, {
+                type: 'pie',
+                data: {
+                    labels: Object.keys(cityData),
+                    datasets: [{
+                        label: 'User Distribution by City',
+                        data: Object.values(cityData),
+                        backgroundColor: [
+                            'rgba(255, 99, 132, 0.2)',
+                            'rgba(54, 162, 235, 0.2)',
+                            'rgba(255, 206, 86, 0.2)',
+                            'rgba(75, 192, 192, 0.2)',
+                            'rgba(153, 102, 255, 0.2)',
+                            'rgba(255, 159, 64, 0.2)'
+                        ],
+                        borderColor: [
+                            'rgba(255, 99, 132, 1)',
+                            'rgba(54, 162, 235, 1)',
+                            'rgba(255, 206, 86, 1)',
+                            'rgba(75, 192, 192, 1)',
+                            'rgba(153, 102, 255, 1)',
+                            'rgba(255, 159, 64, 1)'
+                        ],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>

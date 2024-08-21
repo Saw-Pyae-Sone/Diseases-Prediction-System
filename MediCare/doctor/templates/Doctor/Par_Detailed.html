@@ -1,0 +1,160 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MediCare</title>
+
+    <link rel="stylesheet" href="{% static 'assets/css/maicons.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/bootstrap.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/vendor/owl-carousel/css/owl.carousel.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/vendor/animate/animate.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/theme.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/2.0.7/css/dataTables.dataTables.css" />
+</head>
+<body>
+    {% include 'Doctor/navbarC.html' %}
+    
+    <div class="container">
+        <div class="row">
+            <h1 class="text-center mt-2">Parkinsons History Detailed</h1>
+            <div class="col-lg-4 mt-3 mb-3">
+                {% with patient_info=patients.0 %}
+                    <p> Name -  {{ patient_info.Patient_Name }}</p>
+                    <p> Email - {{ patient_info.Patient_Email }}</p>
+                    <p> Address - {{ patient_info.Patient_Address }}</p>
+                {% endwith %}
+            </div>
+            <table class="table table-striped" style="width:100%">
+                <thead>
+                    <tr>
+                        <th>Symptoms Name</th>
+                        <th>Measurement</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>MDVP: Fo (Hz)</td>
+                        <td>{{ Pparkinsons_disease_data.Par_ID.MDVP_FO_Hz }}</td>
+                    </tr>
+                    <tr>
+                        <td>MDVP: Fhi (Hz)</td>
+                        <td>{{ Pparkinsons_disease_data.Par_ID.MDVP_Fhi_Hz }}</td>
+                    </tr>
+                    <tr>
+                        <td>MDVP: Flo (Hz)</td>
+                        <td>{{ Pparkinsons_disease_data.Par_ID.MDVP_Flo_hz }}</td>
+                    </tr>
+                    <tr>
+                        <td>MDVP: Jitter (%)</td>
+                        <td>{{ Pparkinsons_disease_data.Par_ID.MDVP_Jitter_percentage }}</td>
+                    </tr>
+                    <tr>
+                        <td>MDVP: Jitter (Abs)</td>
+                        <td>{{ Pparkinsons_disease_data.Par_ID.MDVP_Jibber_Abs }}</td>
+                    </tr>
+                    <tr>
+                        <td>MDVP: RAP</td>
+                        <td>{{ Pparkinsons_disease_data.Par_ID.MDVP_RAP }}</td>
+                    </tr>
+                    <tr>
+                        <td>MDVP: PPQ</td>
+                        <td>{{ Pparkinsons_disease_data.Par_ID.MDVP_PPQ }}</td>
+                    </tr>
+                    <tr>
+                        <td>Jitter: DDP</td>
+                        <td>{{ Pparkinsons_disease_data.Par_ID.Jitter_DDP }}</td>
+                    </tr>
+                    <tr>
+                        <td>MDVP: Shimmer</td>
+                        <td>{{ Pparkinsons_disease_data.Par_ID.MDVP_Shimmer }}</td>
+                    </tr>
+                    <tr>
+                        <td>MDVP: Shimmer (dB)</td>
+                        <td>{{ Pparkinsons_disease_data.Par_ID.MDVP_Shimmer_dB }}</td>
+                    </tr>
+                    <tr>
+                        <td>Shimmer: APQ3</td>
+                        <td>{{ Pparkinsons_disease_data.Par_ID.Shimmer_APQ3 }}</td>
+                    </tr>
+                    <tr>
+                        <td>Shimmer: APQ5</td>
+                        <td>{{ Pparkinsons_disease_data.Par_ID.Shimmer_APQ5 }}</td>
+                    </tr>
+                    <tr>
+                        <td>MDVP: APQ</td>
+                        <td>{{ Pparkinsons_disease_data.Par_ID.MDVP_APQ }}</td>
+                    </tr>
+                    <tr>
+                        <td>Shimmer: DDA</td>
+                        <td>{{ Pparkinsons_disease_data.Par_ID.Shimmer_DDA }}</td>
+                    </tr>
+                    <tr>
+                        <td>NHR</td>
+                        <td>{{ Pparkinsons_disease_data.Par_ID.NHR }}</td>
+                    </tr>
+                    <tr>
+                        <td>HNR</td>
+                        <td>{{ Pparkinsons_disease_data.Par_ID.HNR }}</td>
+                    </tr>
+                    <tr>
+                        <td>RPDE</td>
+                        <td>{{ Pparkinsons_disease_data.Par_ID.RPDE }}</td>
+                    </tr>
+                    <tr>
+                        <td>DFA</td>
+                        <td>{{ Pparkinsons_disease_data.Par_ID.DFA }}</td>
+                    </tr>
+                    <tr>
+                        <td>Spread1</td>
+                        <td>{{ Pparkinsons_disease_data.Par_ID.spread1 }}</td>
+                    </tr>
+                    <tr>
+                        <td>Spread2</td>
+                        <td>{{ Pparkinsons_disease_data.Par_ID.spread2 }}</td>
+                    </tr>
+                    <tr>
+                        <td>D2</td>
+                        <td>{{ Pparkinsons_disease_data.Par_ID.D2 }}</td>
+                    </tr>
+                    <tr>
+                        <td>PPE</td>
+                        <td>{{ Pparkinsons_disease_data.Par_ID.PPE }}</td>
+                    </tr>
+                    <tr>
+                        <td>Status</td>
+                        <td>
+                            {% if Pparkinsons_disease_data.Par_ID.status == 0 %}
+                                The person does not have Parkinsons with {{ Pparkinsons_disease_data.Parkinsons_Percentages }}% confidence
+                            {% elif Pparkinsons_disease_data.Par_ID.status == 1 %}
+                                The person has Parkinsons with {{ Pparkinsons_disease_data.Parkinsons_Percentages }}% confidence
+                            {% else %}
+                                Unknown
+                            {% endif %}
+                        </td>
+                    </tr>
+                </tbody>
+            </table>            
+        </div>
+    </div>    
+
+    {% include 'Doctor/footerC.html' %}
+
+    <script src="{% static 'assets/js/jquery-3.5.1.min.js' %}"></script>
+    <script src="{% static 'assets/js/bootstrap.bundle.min.js' %}"></script>
+    <script src="{% static 'assets/vendor/owl-carousel/js/owl.carousel.min.js' %}"></script>
+    <script src="{% static 'assets/vendor/wow/wow.min.js' %}"></script>
+    <script src="{% static 'assets/js/theme.js' %}"></script>
+    <script src="https://cdn.datatables.net/2.0.7/js/dataTables.js"></script>
+
+    <script>
+        new DataTable('#symptoms-table');
+
+        $(document).ready( function () {
+            $('#symptoms-table').DataTable();
+        } );
+    </script> 
+</body>
+</html>

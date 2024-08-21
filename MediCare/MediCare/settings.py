@@ -10,11 +10,11 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
+import os
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
@@ -26,6 +26,11 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+AUTHENTICATION_BACKENDS = ['customadmin.backend.AdminBackend']
+
+# SESSION_ADDED
+SESSION_ENGINE = 'django.contrib.sessions.backends.db'
+SESSION_COOKIE_SECURE = False
 
 # Application definition
 
@@ -39,6 +44,7 @@ INSTALLED_APPS = [
 
     "base.apps.BaseConfig",
     "customadmin.apps.CustomadminConfig",
+    "doctor.apps.DoctorConfig",
 ]
 
 MIDDLEWARE = [
@@ -57,7 +63,7 @@ TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
         "DIRS": [
-            BASE_DIR / 'templates/'
+               os.path.join(BASE_DIR / 'templates/'),
         ],
         "APP_DIRS": True,
         "OPTIONS": {
@@ -66,17 +72,13 @@ TEMPLATES = [
                 "django.template.context_processors.request",
                 "django.contrib.auth.context_processors.auth",
                 "django.contrib.messages.context_processors.messages",
+                'base.context_processors.profile_picture',
+                'customadmin.context_processors.admin_profile_picture',
+                'doctor.context_processors.doctor_profile_picture'
             ],
         },
     },
 ]
-
-STATIC_URL = 'static/'
-
-DEFAULT_AUTO_FIELD = ''
-
-WSGI_APPLICATION = "MediCare.wsgi.application"
-
 
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
@@ -122,15 +124,19 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
+STATIC_URL = '/static/'
+
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, "base/static/"),
+    os.path.join(BASE_DIR, "customadmin/static/"),
+]
+
+STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
+
+MEDIA_URL = '/customadmin/static/cimg/'
+
+MEDIA_ROOT = os.path.join(BASE_DIR, 'customadmin/static/cimg')
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
-STATIC_URL = "/static/"
-STATIC_ROOT = BASE_DIR / 'staticfiles' 
-DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
-
-# Use STATICFILES_DIRS instead of STATIC_DIRS
-STATICFILES_DIRS = [
-    BASE_DIR / 'base' / 'static'
-]

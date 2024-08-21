@@ -1,158 +1,193 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Home Page</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MediCare</title>
 
-  <style>
-    body {
-      margin: 0;
-      font-family: "Lato", sans-serif;
-      display: flex;
-      flex-direction: column;
-      height: 100vh;
-    }
+    <link rel="stylesheet" href="{% static 'assets/css/maicons.css' %}">
 
-    .wrapper {
-      display: flex;
-    }
+    <link rel="stylesheet" href="{% static 'assets/css/bootstrap.css' %}">
 
-    .sidebar {
-      margin: 0;
-      padding: 0;
-      width: 200px;
-      background-color: #f1f1f1;
-      overflow: auto;
-    }
+    <link rel="stylesheet" href="{% static 'assets/vendor/owl-carousel/css/owl.carousel.css' %}">
 
-    .sidebar a {
-      display: block;
-      color: black;
-      padding: 16px;
-      text-decoration: none;
-    }
+    <link rel="stylesheet" href="{% static 'assets/vendor/animate/animate.css' %}">
 
-    .sidebar a.active {
-      background-color: #04AA6D;
-      color: white;
-    }
+    <link rel="stylesheet" href="{% static 'assets/css/theme.css' %}">
 
-    .sidebar a:hover:not(.active) {
-      background-color: #555;
-      color: white;
-    }
-
-    .content {
-      flex: 1;
-      padding: 16px; /* Add padding to separate content from the sidebar */
-    }
-
-    @media screen and (max-width: 700px) {
-      .wrapper {
-        flex-direction: column;
-      }
-
-      .sidebar {
-        width: 100%;
-        height: auto;
-      }
-    }
-  </style>
+    <style>
+        body {
+          margin: 0;
+          font-family: "Lato", sans-serif;
+          display: flex;
+          flex-direction: column;
+          height: 100vh;
+        }
+    
+        .wrapper {
+          display: flex;
+        }
+    
+        .sidebar {
+          margin: 0;
+          padding: 0;
+          width: 200px;
+          background-color: #f1f1f1;
+          overflow: auto;
+        }
+    
+        .sidebar a {
+          display: block;
+          color: black;
+          padding: 16px;
+          text-decoration: none;
+        }
+    
+        .sidebar a.active {
+          background-color: #04AA6D;
+          color: white;
+        }
+    
+        .sidebar a:hover:not(.active) {
+          background-color: #555;
+          color: white;
+        }
+    
+        .content {
+          flex: 1;
+          padding: 16px; /* Add padding to separate content from the sidebar */
+        }
+    
+        @media screen and (max-width: 700px) {
+          .wrapper {
+            flex-direction: column;
+          }
+    
+          .sidebar {
+            width: 100%;
+            height: auto;
+          }
+        }
+      </style>
 </head>
 <body>
+    {% include 'MediCare/navbarC.html' %}
+    
+      <div class="">
+        <div class="wrapper">
+            <div class="sidebar">
+              <h5 class="text-center text-decoration-underline mt-4 mb-3">Multiple Diseases</h5>
+              <hr>
+              <a class="active" href="{% url 'home' %}">Heart Disease Prediciton</a>
+              <a href="{% url 'diabetes' %}">Diabetes Prediciton</a>
+              <a href="{% url 'parkinsons' %}">Parkinsons Prediction</a>
+            </div>
+        
+            <div class="content">
+              <h3 class="text-center text-decoration-underline mt-2">Heart Disease Prediction</h3>
+              <hr>
+                <form action="{% url 'predict_heart' %}" method="post">
+                  {% csrf_token %}
+                  <div class="row">
+                    <div class="col-lg-4 col-md-4 col-sm-4 mb-3">
+                      <label for="" class="form-label">Age</label>
+                      <input type="number" class="form-control" name="age" required>
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-sm-4 mb-3">
+                      <label for="" class="form-label">Sex</label>
+                      <select name="sex" class="form-control" required>
+                        <option value="1">Male</option>
+                        <option value="0">Female</option>
+                      </select>
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-sm-4 mb-3">
+                      <label for="" class="form-label">Chest Pain Types</label>
+                      <input type="number" class="form-control" name="cp" required>
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-sm-4 mb-3">
+                      <label for="" class="form-label">Resting Blood Pressure</label>
+                      <input type="number" class="form-control" name="trestbps" required>
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-sm-4 mb-3">
+                      <label for="" class="form-label">Serum Cholesoral in mg/dl</label>
+                      <input type="number" class="form-control" name="chol" required>
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-sm-4 mb-3">
+                      <label for="" class="form-label">Fasting blood sugar > 120 mg/dl</label>
+                      <input type="number" class="form-control" name="fbs" required>
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-sm-4 mb-3">
+                      <label for="" class="form-label">Resting Electrocardiographic results</label>
+                      <input type="number" class="form-control" name="restecg" required>
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-sm-4 mb-3">
+                      <label for="" class="form-label">Maximum Heart Rate Achieved</label>
+                      <input type="number" class="form-control" name="thalach" required>
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-sm-4 mb-3">
+                      <label for="" class="form-label">Exercies Induced Angina</label>
+                      <input type="number" class="form-control" name="exang" required>
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-sm-4 mb-3">
+                      <label for="" class="form-label">ST depression Induced by exercies</label>
+                      <input type="text" class="form-control" name="oldpeak" required>
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-sm-4 mb-3">
+                      <label for="" class="form-label">Slope of the peak exercise ST segment</label>
+                      <input type="number" class="form-control" name="slope" required>
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-sm-4 mb-3">
+                      <label for="" class="form-label">Major vessels colored by flourosopy</label>
+                      <input type="number" class="form-control" name="ca" required>
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-sm-4 mb-3">
+                      <label for="" class="form-label">Thalassemia</label>
+                      <select name="thal" class="form-control" required>
+                        <option value="0">normal</option>
+                        <option value="1">fixed</option>
+                        <option value="0">reverable defect</option>
+                      </select>
+                    </div>
+                  </div>
+                  <button type="submit" class="btn btn-primary mb-2">Heart Disease Test Result</button>
+                </form>
 
-  {% include 'MediCare/navbar.html' %}
+                {% if heart_condition == 1 %}
+                  <div class="btn btn-success font-weight-bold mt-3 text-center text-decoration-underline">{{ heart_diagnosis }}</div>
 
-  {% block content %}
+                  {% include 'MediCare/Doctor_save.html' %}
 
-  <div class="wrapper">
-    <div class="sidebar">
-      <h5 class="text-center text-decoration-underline mt-2 mb-3">Multiple Diseases</h5>
-      <a class="active" href="{% url 'home' %}">Heart Disease Prediciton</a>
-      <a href="{% url 'diabetes' %}">Diabetes Prediciton</a>
-      <a href="{% url 'parkinsons' %}">Parkinsons Prediction</a>
-    </div>
+                  <div class="row mt-3">
+                    <h1 class="text-center">Medical Prevention</h1>
+                    <p class="text-center">You can prevent Heart Diseases from happening by simply following these prevention steps</p>
+                    {% for data in medical_pre %}
+                        <div class="col-lg-6">
+                            <div class="card" style="width:500px">
+                                <img class="card-img-top" src="{{ data.Medical_Image.url }}" alt="Card image">
+                            </div>
+                        </div>
+                    {% endfor %}
+                  </div>   
 
-    <div class="content">
-      <h3 class="text-center text-decoration-underline">Heart Disease Prediction</h3>
-        <form action="{% url 'predict_heart' %}" method="post">
-          {% csrf_token %}
-          <div class="row">
-            <div class="col-lg-4 col-md-4 col-sm-4 mb-3">
-              <label for="" class="form-label">Age</label>
-              <input type="number" class="form-control" name="age" required>
-            </div>
-            <div class="col-lg-4 col-md-4 col-sm-4 mb-3">
-              <label for="" class="form-label">Sex</label>
-              <select name="sex" class="form-control" required>
-                <option value="1">Male</option>
-                <option value="0">Female</option>
-              </select>
-            </div>
-            <div class="col-lg-4 col-md-4 col-sm-4 mb-3">
-              <label for="" class="form-label">Chest Pain Types</label>
-              <input type="number" class="form-control" name="cp" required>
-            </div>
-            <div class="col-lg-4 col-md-4 col-sm-4 mb-3">
-              <label for="" class="form-label">Resting Blood Pressure</label>
-              <input type="number" class="form-control" name="trestbps" required>
-            </div>
-            <div class="col-lg-4 col-md-4 col-sm-4 mb-3">
-              <label for="" class="form-label">Serum Cholesoral in mg/dl</label>
-              <input type="number" class="form-control" name="chol" required>
-            </div>
-            <div class="col-lg-4 col-md-4 col-sm-4 mb-3">
-              <label for="" class="form-label">Fasting blood sugar > 120 mg/dl</label>
-              <input type="number" class="form-control" name="fbs" required>
-            </div>
-            <div class="col-lg-4 col-md-4 col-sm-4 mb-3">
-              <label for="" class="form-label">Resting Electrocardiographic results</label>
-              <input type="number" class="form-control" name="restecg" required>
-            </div>
-            <div class="col-lg-4 col-md-4 col-sm-4 mb-3">
-              <label for="" class="form-label">Maximum Heart Rate Achieved</label>
-              <input type="number" class="form-control" name="thalach" required>
-            </div>
-            <div class="col-lg-4 col-md-4 col-sm-4 mb-3">
-              <label for="" class="form-label">Exercies Induced Angina</label>
-              <input type="number" class="form-control" name="exang" required>
-            </div>
-            <div class="col-lg-4 col-md-4 col-sm-4 mb-3">
-              <label for="" class="form-label">ST depression Induced by exercies</label>
-              <input type="text" class="form-control" name="oldpeak" required>
-            </div>
-            <div class="col-lg-4 col-md-4 col-sm-4 mb-3">
-              <label for="" class="form-label">Slope of the peak exercise ST segment</label>
-              <input type="number" class="form-control" name="slope" required>
-            </div>
-            <div class="col-lg-4 col-md-4 col-sm-4 mb-3">
-              <label for="" class="form-label">Major vessels colored by flourosopy</label>
-              <input type="number" class="form-control" name="ca" required>
-            </div>
-            <div class="col-lg-4 col-md-4 col-sm-4 mb-3">
-              <label for="" class="form-label">Thalassemia</label>
-              <select name="thal" class="form-control" required>
-                <option value="0">normal</option>
-                <option value="1">fixed</option>
-                <option value="0">reverable defect</option>
-              </select>
-            </div>
+                {% else %}
+                  <div class="btn btn-success font-weight-bold mt-3 text-center text-decoration-underline">{{ heart_diagnosis }}</div>
+                {% endif %}
+
+            </div>       
           </div>
-          <button type="submit" class="btn btn-primary">Heart Disease Test Result</button>
-        </form>
+        </div>
 
-        {% if heart_diagnosis %}
+    {% include 'MediCare/footerC.html' %}
 
-        <div class="btn btn-success font-weight-bold mt-3 text-center text-decoration-underline">{{ heart_diagnosis }}</div>
+    <script src="{% static 'assets/js/jquery-3.5.1.min.js' %}"></script>
 
-        {% endif %}
-    </div>
-  </div>
-  {% endblock content %}
+    <script src="{% static 'assets/js/bootstrap.bundle.min.js' %}"></script>
 
-  {% include 'MediCare/footer.html' %}
+    <script src="{% static 'assets/vendor/owl-carousel/js/owl.carousel.min.js' %}"></script>
 
+    <script src="{% static 'assets/vendor/wow/wow.min.js' %}"></script>
+
+    <script src="{% static 'assets/js/theme.js' %}"></script>
 </body>
-
 </html>

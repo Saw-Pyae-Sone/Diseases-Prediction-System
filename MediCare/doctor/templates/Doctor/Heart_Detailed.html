@@ -1,0 +1,150 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MediCare</title>
+
+    <link rel="stylesheet" href="{% static 'assets/css/maicons.css' %}">
+
+    <link rel="stylesheet" href="{% static 'assets/css/bootstrap.css' %}">
+
+    <link rel="stylesheet" href="{% static 'assets/vendor/owl-carousel/css/owl.carousel.css' %}">
+
+    <link rel="stylesheet" href="{% static 'assets/vendor/animate/animate.css' %}">
+
+    <link rel="stylesheet" href="{% static 'assets/css/theme.css' %}">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css">
+
+    <link rel="stylesheet" href="https://cdn.datatables.net/2.0.7/css/dataTables.dataTables.css" />
+
+</head>
+<body>
+    {% include 'Doctor/navbarC.html' %}
+    
+    <div class="container">
+        <div class="row">
+            <h1 class="text-center mt-2">Heart Disease History</h1>
+            <div class="col-lg-6 mt-3 mb-3">
+                {% with patient_info=patients.0 %}
+                    <p> Name -  {{ patient_info.Patient_Name }}</p>
+                    <p> Email - {{ patient_info.Patient_Email }}</p>
+                    <p> Address - {{ patient_info.Patient_Address }}</p>
+                {% endwith %}
+            </div>
+            <div class="col-lg-4 mt-3 mb-4">
+                <label for="Family Medical History">Family Medical History</label>
+                {% with patient_info=patients.0 %}
+                    <img src="{{ patient_info.Patient_Family_Medical_History.url }}" class="img-fluid" style="width: 100%; height: 30vh;"> 
+                {% endwith %}
+            </div>
+            <table id="symptoms-table" class="table table-striped" style="width:100%">
+                <thead>
+                    <tr>
+                        <th>Symptoms Name</th>
+                        <th>Measurement</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Age</td>
+                        <td>{{ dheart_disease_data.HD_ID.age }}</td>
+                    </tr>
+                    <tr>
+                        <td>Sex</td>
+                        <td>{% if dheart_disease_data.HD_ID.sex == 0 %} Male {% else %} Female {% endif %}</td>
+                    </tr>
+                    <tr>
+                        <td>Chest Pain Type (cp)</td>
+                        <td>{{ dheart_disease_data.HD_ID.cp }}</td>
+                    </tr>
+                    <tr>
+                        <td>Resting Blood Pressure (trestbps)</td>
+                        <td>{{ dheart_disease_data.HD_ID.trestbps }}</td>
+                    </tr>
+                    <tr>
+                        <td>Serum Cholesterol (chol)</td>
+                        <td>{{ dheart_disease_data.HD_ID.chol }}</td>
+                    </tr>
+                    <tr>
+                        <td>Resting Blood Pressure (trestbps)</td>
+                        <td>{{ dheart_disease_data.HD_ID.trestbps }}</td>
+                    </tr>
+                    <tr>
+                        <td>Serum Cholesterol (chol)</td>
+                        <td>{{ dheart_disease_data.HD_ID.chol }}</td>
+                    </tr>
+                    <tr>
+                        <td>Fasting Blood Sugar (fbs)</td>
+                        <td>{{ dheart_disease_data.HD_ID.fbs }}</td>
+                    </tr>
+                    <tr>
+                        <td>Resting Electrocardiographic Results (restecg)</td>
+                        <td>{{ dheart_disease_data.HD_ID.restecg }}</td>
+                    </tr>
+                    <tr>
+                        <td>Maximum Heart Rate Achieved (thalach)</td>
+                        <td>{{ dheart_disease_data.HD_ID.thalach }}</td>
+                    </tr>
+                    <tr>
+                        <td>Exercise Induced Angina (exang)</td>
+                        <td>{{ dheart_disease_data.HD_ID.exang }}</td>
+                    </tr>
+                    <tr>
+                        <td>ST Depression Induced by Exercise Relative to Rest (oldpeak)</td>
+                        <td>{{ dheart_disease_data.HD_ID.oldpeak }}</td>
+                    </tr>
+                    <tr>
+                        <td>Slope of the Peak Exercise ST Segment (slope)</td>
+                        <td>{{ dheart_disease_data.HD_ID.slope }}</td>
+                    </tr>
+                    <tr>
+                        <td>Number of Major Vessels Colored by Flouroscopy (ca)</td>
+                        <td>{{ dheart_disease_data.HD_ID.ca }}</td>
+                    </tr>
+                    <tr>
+                        <td>Thalassemia (thal)</td>
+                        <td>{{ dheart_disease_data.HD_ID.thal }}</td>
+                    </tr>
+                    <tr>
+                        <td>Target</td>
+                        <td>
+                            {% if dheart_disease_data.HD_ID.target == 0 %}
+                                The person does not have Heart Disease with {{ dheart_disease_data.Heart_Percentages }}% confidence
+                            {% elif dheart_disease_data.HD_ID.target == 1 %}
+                                The person has Heart Disease with {{ dheart_disease_data.Heart_Percentages }}% confidence
+                            {% else %}
+                                Unknown
+                            {% endif %}  
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>    
+
+    {% include 'Doctor/footerC.html' %}
+
+    <script src="{% static 'assets/js/jquery-3.5.1.min.js' %}"></script>
+
+    <script src="{% static 'assets/js/bootstrap.bundle.min.js' %}"></script>
+
+    <script src="{% static 'assets/vendor/owl-carousel/js/owl.carousel.min.js' %}"></script>
+
+    <script src="{% static 'assets/vendor/wow/wow.min.js' %}"></script>
+
+    <script src="{% static 'assets/js/theme.js' %}"></script>
+
+    <script src="https://cdn.datatables.net/2.0.7/js/dataTables.js"></script>
+
+    <script>
+        // new DataTable('#symptoms-table');
+
+        $(document).ready( function () {
+            $('#myTable').DataTable();
+        } );
+    </script>
+</body>
+</html>

@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Model Training Success</title>
+    <!-- CSS only -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0wkQ4s8Guo6izCP6u0C4WJRRA28sDSw3PAByF/ngtZ/6Op0n4Gzv3ffWJBLDn+1" crossorigin="anonymous">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .message {
+            text-align: center;
+        }
+
+        .message h1 {
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .message p {
+            color: #666;
+            font-size: 18px;
+        }
+
+        #pieChart {
+            margin: 0 auto;
+            width: 100%;  /* Adjust width as needed */
+            height: 400px;  /* Adjust height as needed */
+        }
+
+        .back-button {
+            background-color: red;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+
+        .back-button:hover {
+            background-color: darkred;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="message">
+            <h1>Model Trained Successfully!</h1>
+            <p>Accuracy: {{ accuracy }}%</p>
+            <div id="pieChart"></div>
+            <a class="back-button" type="button" href="{% url 'trainM' %}">
+                Back
+            </a>
+            <div id="accuracy-data" data-accuracy="{{ accuracy }}" hidden></div>
+        </div>
+    </div>
+
+   <!-- JavaScript for rendering the pie chart -->
+<script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+<script>
+    // Data for the pie chart
+    var accuracy = parseFloat(document.getElementById("accuracy-data").getAttribute("data-accuracy"));
+    var inaccuracy = 100 - accuracy;
+    
+    // Options for the pie chart
+    var options = {
+        series: [accuracy, inaccuracy],
+        labels: ['Accuracy', 'Inaccuracy'],
+        colors: ['#4CAF50', '#FF5722'],
+        chart: {
+            type: 'donut',
+            width: 400,
+            height: 300
+        },
+        responsive: [{
+            breakpoint: 480,
+            options: {
+                chart: {
+                    width: 200,
+                    height: 150
+                },
+                legend: {
+                    position: 'bottom'
+                }
+            }
+        }]
+    };
+    
+    // Render the pie chart
+    var pieChart = new ApexCharts(document.querySelector("#pieChart"), options);
+    pieChart.render();
+</script>
+</body>
+</html>
+
